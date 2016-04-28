@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
+
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:spb_sections_count="4"
+        app:spb_color="@color/colorBlanco"
+        app:spb_speed="2.0"
+        app:spb_stroke_width="4dp"
+        app:spb_stroke_separator_length="4dp"
+        app:spb_reversed="false"
+        app:spb_mirror_mode="false"
+        app:spb_progressiveStart_activated="true"
+        app:spb_progressiveStart_speed="1.5"
+        app:spb_progressiveStop_speed="3.4"
+        android:id="@+id/progressbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:id="@+id/tvTitulo"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="45sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/redsport_icon" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:id="@+id/imUser"
+            android:src="@drawable/icon_new_user"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/etUserN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:hint="Nombre de usuario"
+            android:theme="@style/CampoTextoBlanco"
+            android:textColorHint="@color/colorBlanco"
+            android:textColor="@color/colorBlanco"
+            android:layout_margin="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:id="@+id/imPass"
+            android:src="@drawable/icon_new_pass"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/etContrasenaN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:hint="Contraseña"
+            android:theme="@style/CampoTextoBlanco"
+            android:textColorHint="@color/colorBlanco"
+            android:textColor="@color/colorBlanco"
+            android:layout_margin="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:id="@+id/imPass2"
+            android:src="@drawable/icon_new_pass"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/etContrasenaN2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:hint="Repita su contraseña"
+            android:theme="@style/CampoTextoBlanco"
+            android:textColorHint="@color/colorBlanco"
+            android:textColor="@color/colorBlanco"
+            android:layout_margin="16dp" />
+        </LinearLayout>
 
 </LinearLayout>

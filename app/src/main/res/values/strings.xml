@@ -2,6 +2,6 @@
     <string name="app_name">RedSports</string>
     <string name="login_user">Usuario</string>
     <string name="login_pass">Contraseña</string>
-    <string name="login_iniciarsesion">Contraseña</string>
+    <string name="login_iniciarsesion">Iniciar sesión</string>
     <string name="login_registrarse">¿No tienes una cuenta? Registrate</string>
 </resources>

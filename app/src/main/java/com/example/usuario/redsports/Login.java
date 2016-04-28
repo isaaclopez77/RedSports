@@ -1,5 +1,6 @@
 package com.example.usuario.redsports;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -51,7 +52,8 @@ public class Login extends AppCompatActivity {
         tvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login.this,"pulsado",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Login.this,AltaUsuario.class);
+                startActivity(i);
             }
         });
 
