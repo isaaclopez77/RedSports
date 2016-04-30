@@ -49,6 +49,13 @@ public class Login extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/RockSalt.ttf");
         tvTitulo.setTypeface(tf);
 
+        //Si viene de crearse una cuenta
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            etUser.setText(extras.getString("user"));
+            etPass.setText(extras.getString("pass"));
+        }
+
         tvRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

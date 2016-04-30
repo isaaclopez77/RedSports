@@ -37,7 +37,7 @@
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff"
-        android:textSize="45sp"
+        android:textSize="35sp"
         android:layout_weight="0.3"
         android:textStyle="bold" />
 
