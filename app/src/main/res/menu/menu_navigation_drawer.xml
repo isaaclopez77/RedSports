@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ndpartidos"
+
+            android:title="Buscar Partidos" />
+        <item
+            android:id="@+id/ndmapa"
+
+            android:title="Ver en Mapa" />
+        <item
+            android:id="@+id/ndLogout"
+
+            android:title="Cerrar sesión" />
+    </group>
+
+</menu>

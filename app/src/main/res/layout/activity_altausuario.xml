@@ -127,14 +127,6 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Subir mi foto"
-        android:id="@+id/btnImg"
-        android:theme="@style/AppTheme.Button"
-        android:textSize="15sp"
-        android:layout_weight="1" />
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"

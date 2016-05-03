@@ -4,4 +4,7 @@
     <string name="login_pass">Contraseña</string>
     <string name="login_iniciarsesion">Iniciar sesión</string>
     <string name="login_registrarse">¿No tienes una cuenta? Registrate</string>
+    <string name="facebook_app_id">1049229095148058</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
 </resources>

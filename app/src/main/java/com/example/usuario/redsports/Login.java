@@ -1,6 +1,8 @@
 package com.example.usuario.redsports;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +44,8 @@ public class Login extends AppCompatActivity {
     private String usuario, contraseña;
     private TextView tvTitulo, tvRegistrarse;
     private SmoothProgressBar barra;
+    private SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +61,22 @@ public class Login extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/RockSalt.ttf");
         tvTitulo.setTypeface(tf);
 
+        prefs = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+
         //Si viene de crearse una cuenta
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             etUser.setText(extras.getString("user"));
             etPass.setText(extras.getString("pass"));
+        }
+
+        //comprobar si ya esta logueado
+        usuario = prefs.getString("username","");
+        contraseña = prefs.getString("contrasena","");
+        if(!usuario.equals("") && !contraseña.equals("")){
+            Intent i = new Intent(Login.this, Principal.class);
+            startActivity(i);
         }
 
         tvRegistrarse.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +189,12 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(String s) {
             barra.setVisibility(View.INVISIBLE);
             if(s.equals("Logueado")){
-                Toast.makeText(Login.this,"jeje",Toast.LENGTH_SHORT).show();
+                editor.putString("username",usuario);
+                editor.putString("contrasena",contraseña);
+                editor.commit();
+
+                Intent i = new Intent(Login.this, Principal.class);
+                startActivity(i);
             }else {
                 Snackbar.make(btnOk, s, Snackbar.LENGTH_SHORT).show();
             }

@@ -2,18 +2,14 @@ package com.example.usuario.redsports;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -30,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import com.facebook.FacebookSdk;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
@@ -44,19 +40,6 @@ public class AltaUsuario extends AppCompatActivity{
     private final String IP = "http://webservicesports.esy.es";
     private final String INSERT = IP + "/insertar_usuario.php";
     private boolean rellenado = false;
-    private static final int TAKE_PICTURE = 1;
-    private String rutaFoto;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        File file = new File(rutaFoto);
-        if (file.exists()) {
-            new UploadImageTask().execute(rutaFoto);
-        } else {
-            Toast.makeText(getApplicationContext(), "Cancelado", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,19 +54,6 @@ public class AltaUsuario extends AppCompatActivity{
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/RockSalt.ttf");
         tvTitulo.setTypeface(tf);
         btnOk = (Button)findViewById(R.id.btnOkN);
-        btnImg = (Button)findViewById(R.id.btnImg);
-
-        btnImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(rellenado){
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    Uri output = Uri.fromFile(new File(rutaFoto));
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, output);
-                    startActivityForResult(intent, TAKE_PICTURE);
-                }
-            }
-        });
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +66,6 @@ public class AltaUsuario extends AppCompatActivity{
                             if(etPass.getText().toString().trim().equals(etPass2.getText().toString().trim())){ //Todo ok, recojo las variables y ejecuto la hebra
                                 String usuario = etUser.getText().toString().trim();
                                 String contraseña = etPass.getText().toString().trim();
-                                rutaFoto = Environment.getExternalStorageDirectory() + "/" + usuario + ".jpg";
                                 rellenado=true;
                                 barra.setVisibility(View.VISIBLE);
 
@@ -198,16 +167,6 @@ public class AltaUsuario extends AppCompatActivity{
             }else if(s.equals("3")){ //El usuario ya existe
                 Snackbar.make(btnOk,"El usuario ya existe", Snackbar.LENGTH_LONG).show();
             }
-        }
-    }
-
-    public class UploadImageTask extends AsyncTask<String,Void,String>{
-
-        String miFoto = "";
-
-        @Override
-        protected String doInBackground(String... params) {
-            return null;
         }
     }
 }
