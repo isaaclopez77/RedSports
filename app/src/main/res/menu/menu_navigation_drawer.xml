@@ -10,10 +10,16 @@
             android:id="@+id/ndmapa"
 
             android:title="Ver en Mapa" />
-        <item
-            android:id="@+id/ndLogout"
-
-            android:title="Cerrar sesión" />
     </group>
+
+    <item
+        android:id="@+id/ndconfig"
+        android:title="Configuración">
+        <menu>
+            <item
+                android:id="@+id/ndLogout"
+                android:title="Cerrar Sesión"/>
+        </menu>
+    </item>
 
 </menu>

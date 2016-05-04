@@ -94,8 +94,6 @@ public class Login extends AppCompatActivity {
                 boolean rellenado = false;
 
                 if(etUser.getText().length() > 0) { //Comprobar que haya escrito un nombre de usuario
-                    Log.v("etuser: ",etUser.getText().length()+"");
-                    Log.v("etuser",etUser.getText().toString());
                     usuario = etUser.getText().toString().trim();
 
                     if(etPass.getText().length() > 0) { //Comprobar que haya escrito una contraseña

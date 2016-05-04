@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
