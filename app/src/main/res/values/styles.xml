@@ -16,7 +16,6 @@
     </style>
 
     <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
-        <item name="colorButtonNormal">@color/colorPrimaryDark</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

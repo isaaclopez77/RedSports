@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/ndpartidos"
-
+            android:icon="@android:drawable/ic_menu_search"
             android:title="Buscar Partidos" />
         <item
             android:id="@+id/ndmapa"
-
+            android:icon="@android:drawable/ic_menu_mapmode"
             android:title="Ver en Mapa" />
     </group>
 
@@ -17,7 +17,12 @@
         android:title="Configuración">
         <menu>
             <item
+                android:id="@+id/ndPreferencias"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Preferencias"/>
+            <item
                 android:id="@+id/ndLogout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="Cerrar Sesión"/>
         </menu>
     </item>

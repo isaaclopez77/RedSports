@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -24,14 +23,13 @@ public class Principal extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private TextView tvTitulo, tvNombre;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
-
-
 
         //comprobar si esta logueado y obtener usuario si lo está
         prefs = getSharedPreferences("login_preferences", Context.MODE_PRIVATE);
@@ -51,9 +49,8 @@ public class Principal extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
-        TextView tvTitulo = (TextView) header.findViewById(R.id.tvRedSports);
-        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/RockSalt.ttf");
-        tvTitulo.setTypeface(tf);
+        tvNombre = (TextView) header.findViewById(R.id.tvNombre);
+        tvNombre.setText(usuario);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
