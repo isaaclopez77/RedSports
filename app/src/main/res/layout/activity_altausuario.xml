@@ -56,7 +56,8 @@
             android:id="@+id/imUser"
             android:src="@drawable/icon_new_user"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"/>
 
         <EditText
             android:id="@+id/etUserN"
@@ -65,7 +66,7 @@
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:maxLength="15"
-            android:hint="Nombre de usuario"
+            android:hint="@string/alta_usuario"
             android:theme="@style/CampoTextoBlanco"
             android:textColorHint="@color/colorBlanco"
             android:textColor="@color/colorBlanco"
@@ -84,7 +85,8 @@
             android:id="@+id/imPass"
             android:src="@drawable/icon_new_pass"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp" />
 
         <EditText
             android:id="@+id/etContrasenaN"
@@ -94,7 +96,7 @@
             android:singleLine="true"
             android:maxLength="20"
             android:inputType="textPassword"
-            android:hint="Contraseña"
+            android:hint="@string/alta_contrasena"
             android:theme="@style/CampoTextoBlanco"
             android:textColorHint="@color/colorBlanco"
             android:textColor="@color/colorBlanco"
@@ -122,7 +124,7 @@
             android:singleLine="true"
             android:maxLength="20"
             android:inputType="textPassword"
-            android:hint="Repita su contraseña"
+            android:hint="@string/alta_contrasena2"
             android:theme="@style/CampoTextoBlanco"
             android:textColorHint="@color/colorBlanco"
             android:textColor="@color/colorBlanco"
@@ -140,7 +142,7 @@
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Crear cuenta"
+        android:text="@string/alta_crear_usuario"
         android:id="@+id/btnOkN"
         android:background="@drawable/bordes_boton"
         android:theme="@style/AppTheme.Button"

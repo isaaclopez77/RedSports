@@ -5,25 +5,25 @@
         <item
             android:id="@+id/ndpartidos"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Buscar Partidos" />
+            android:title="@string/nav_buscar_partido" />
         <item
             android:id="@+id/ndmapa"
             android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="Ver en Mapa" />
+            android:title="@string/nav_buscar_mapa" />
     </group>
 
     <item
         android:id="@+id/ndconfig"
-        android:title="Configuración">
+        android:title="@string/nav_configuración">
         <menu>
             <item
                 android:id="@+id/ndPreferencias"
                 android:icon="@drawable/ic_settings_black_24dp"
-                android:title="Preferencias"/>
+                android:title="@string/nav_preferencias"/>
             <item
                 android:id="@+id/ndLogout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
-                android:title="Cerrar Sesión"/>
+                android:title="@string/nav_cerrar_sesion"/>
         </menu>
     </item>
 
