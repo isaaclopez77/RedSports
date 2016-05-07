@@ -1,25 +1,20 @@
 package com.example.usuario.redsports;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.IntentCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.usuario.redsports.fragments.Fragment1;
-import com.example.usuario.redsports.splash.SplashScreen;
+
 
 public class Principal extends AppCompatActivity {
     private String usuario, contraseña;
@@ -63,13 +58,10 @@ public class Principal extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                boolean fragmentTransaction = false;
-                android.support.v4.app.Fragment fragment = null;
-
                 switch (item.getItemId()) {
-                    case R.id.ndpartidos:
-                        fragment = new Fragment1();
-                        fragmentTransaction = true;
+                    case R.id.ndquedadas:
+                        Intent e = new Intent(Principal.this,Quedadas.class);
+                        startActivity(e);
                         break;
                     case R.id.ndmapa:
                         //Mapa
@@ -83,11 +75,6 @@ public class Principal extends AppCompatActivity {
                         break;
                 }
 
-                if (fragmentTransaction) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                    item.setChecked(true);
-                    getSupportActionBar().setTitle(item.getTitle());
-                }
                 drawer.closeDrawers();
                 return true;
             }

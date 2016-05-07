@@ -3,9 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/ndpartidos"
+            android:id="@+id/ndquedadas"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/nav_buscar_partido" />
+            android:title="@string/nav_buscar_quedadas" />
         <item
             android:id="@+id/ndmapa"
             android:icon="@android:drawable/ic_menu_mapmode"

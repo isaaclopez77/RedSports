@@ -14,7 +14,7 @@
     <!-- Nav -->
     <string name="navigation_drawer_open">Abrir menú de navegación</string>
     <string name="navigation_drawer_close">Cerrar menú de navegación</string>
-    <string name="nav_buscar_partido">Buscar Partidos</string>
+    <string name="nav_buscar_quedadas">Buscar quedadas</string>
     <string name="nav_buscar_mapa">Buscar en mapa</string>
     <string name="nav_cerrar_sesion">Cerrar sesión</string>
     <string name="nav_configuración">Configuración</string>

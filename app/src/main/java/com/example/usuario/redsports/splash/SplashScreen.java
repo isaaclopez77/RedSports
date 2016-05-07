@@ -2,14 +2,15 @@ package com.example.usuario.redsports.splash;
 
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.usuario.redsports.Login;
 import com.example.usuario.redsports.R;
@@ -32,18 +33,26 @@ public class SplashScreen extends AppCompatActivity {
         StartAnimations();
     }
     private void StartAnimations() {
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.layout_splash);
         anim.reset();
         RelativeLayout l=(RelativeLayout) findViewById(R.id.lin_lay);
         assert l != null;
         l.clearAnimation();
         l.startAnimation(anim);
 
-        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
-        anim.reset();
+        Animation anim2 = AnimationUtils.loadAnimation(this, R.anim.image_splash);
+        anim2.reset();
         ImageView iv = (ImageView) findViewById(R.id.splash);
         iv.clearAnimation();
-        iv.startAnimation(anim);
+        iv.startAnimation(anim2);
+
+        Animation anim3 = AnimationUtils.loadAnimation(this,R.anim.titulo_splash);
+        anim3.reset();
+        TextView tvTitulo = (TextView)findViewById(R.id.tvTituloSplash);
+        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/RockSalt.ttf");
+        tvTitulo.setTypeface(tf);
+        tvTitulo.clearAnimation();
+        tvTitulo.startAnimation(anim3);
 
         splashTread = new Thread() {
             @Override
