@@ -117,7 +117,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public class LoginTask extends AsyncTask<String,Void,String>{
+    public class LoginTask extends AsyncTask<String,Void,String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -137,7 +137,7 @@ public class Login extends AppCompatActivity {
                 int respuesta = connection.getResponseCode();
                 StringBuilder result = new StringBuilder();
 
-                if (respuesta == HttpURLConnection.HTTP_OK){
+                if (respuesta == HttpURLConnection.HTTP_OK) {
 
 
                     InputStream in = new BufferedInputStream(connection.getInputStream());  // preparo la cadena de entrada
@@ -158,16 +158,15 @@ public class Login extends AppCompatActivity {
 
                     String resultJSON = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                    if (resultJSON.equals("1")){      // hay un alumno que mostrar
+                    if (resultJSON.equals("1")) {      // hay un alumno que mostrar
                         devuelve = respuestaJSON.getJSONObject("mensaje").getString("contrasena");
-                        if(devuelve.equals(contraseña)){
+                        if (devuelve.equals(contraseña)) {
                             return "Logueado";
-                        }else{
+                        } else {
                             return "Contraseña equivocada";
                         }
 
-                    }
-                    else if (resultJSON.equals("2")){
+                    } else if (resultJSON.equals("2")) {
                         return "El usuario no existe";
                     }
 
@@ -186,14 +185,14 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             barra.setVisibility(View.INVISIBLE);
-            if(s.equals("Logueado")){
-                editor.putString("username",usuario);
-                editor.putString("contrasena",contraseña);
+            if (s.equals("Logueado")) {
+                editor.putString("username", usuario);
+                editor.putString("contrasena", contraseña);
                 editor.commit();
 
                 Intent i = new Intent(Login.this, Principal.class);
                 startActivity(i);
-            }else {
+            } else {
                 Snackbar.make(btnOk, s, Snackbar.LENGTH_SHORT).show();
             }
         }

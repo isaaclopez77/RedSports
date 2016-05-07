@@ -1,21 +1,25 @@
 package com.example.usuario.redsports;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.IntentCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.usuario.redsports.fragments.Fragment1;
+import com.example.usuario.redsports.splash.SplashScreen;
 
 public class Principal extends AppCompatActivity {
     private String usuario, contraseña;
@@ -23,7 +27,7 @@ public class Principal extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private TextView tvTitulo, tvNombre;
+    private TextView tvNombre;
 
 
     @Override
@@ -36,6 +40,11 @@ public class Principal extends AppCompatActivity {
         editor = prefs.edit();
         usuario = prefs.getString("username", "");
         contraseña = prefs.getString("contrasena", "");
+        if(usuario.equals("") || contraseña.equals("")){
+            Intent i = new Intent(Principal.this,Login.class);
+            startActivity(i);
+            finish();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +79,7 @@ public class Principal extends AppCompatActivity {
                         editor.commit();
                         Intent i = new Intent(Principal.this,Login.class);
                         startActivity(i);
+                        finish();
                         break;
                 }
 
@@ -94,4 +104,5 @@ public class Principal extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }
