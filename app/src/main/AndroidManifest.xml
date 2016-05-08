@@ -31,6 +31,11 @@
 
         </activity>
         <activity
+            android:name=".splash.SplashScreenSports"
+            android:noHistory="true">
+
+        </activity>
+        <activity
             android:name=".AltaUsuario"
             android:screenOrientation="portrait">
 

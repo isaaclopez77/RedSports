@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.usuario.redsports.splash.SplashScreenSports;
 
 
 public class Principal extends AppCompatActivity {
@@ -60,7 +61,7 @@ public class Principal extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ndquedadas:
-                        Intent e = new Intent(Principal.this,Quedadas.class);
+                        Intent e = new Intent(Principal.this,SplashScreenSports.class);
                         startActivity(e);
                         break;
                     case R.id.ndmapa:
