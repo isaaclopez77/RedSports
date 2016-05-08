@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.example.usuario.redsports.POJO.Deporte;
+import com.example.usuario.redsports.POJO.Encuentro;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +28,8 @@ import java.util.ArrayList;
 
 public class Quedadas extends AppCompatActivity {
 
-    private ArrayList<String> array = new ArrayList<>();
+    private ArrayList<Deporte> deportes = new ArrayList<>();
+    private ArrayList<Encuentro> encuentros = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +38,24 @@ public class Quedadas extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-             array = extras.getStringArrayList("deportes");
+             deportes = extras.getParcelableArrayList("deportes");
+             encuentros = extras.getParcelableArrayList("encuentros");
+            for(Encuentro e : encuentros){
+                Log.v("encuentroQuedadas",e.toString());
+            }
         }else{
-            Log.v("estado","error");
+            Intent i = new Intent(this,Principal.class);
+            startActivity(i);
+            finish();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarQuedadas);
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-
         assert viewPager != null;
-        //hay que recoger los datos antes de hacer esto
-        viewPager.setAdapter(new AdaptadorPestañas(getSupportFragmentManager(),array ));
+        viewPager.setAdapter(new AdaptadorPestañas(getSupportFragmentManager(),deportes, encuentros));
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.appbartabs);
         assert tabLayout != null;
