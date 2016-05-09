@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.usuario.redsports.POJO.Deporte;
 import com.example.usuario.redsports.POJO.Encuentro;
 import com.example.usuario.redsports.Principal;
-import com.example.usuario.redsports.Quedadas;
+import com.example.usuario.redsports.Encuentros;
 import com.example.usuario.redsports.R;
 
 import org.json.JSONArray;
@@ -27,8 +27,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -134,7 +132,6 @@ public class SplashScreenSports extends AppCompatActivity {
             if(sports!=null){
                 new getEncuentrosTask().execute(OBTENER_ENCUENTROS);
                 for(Deporte d : sports){
-                    Log.v("deporte",d.toString());
                     deportes.add(d);
                 }
             }else{
@@ -191,14 +188,14 @@ public class SplashScreenSports extends AppCompatActivity {
                         jArray = respuestaJSON.getJSONArray("encuentros");
                         ArrayList<Encuentro> arrayEncuentros = new ArrayList<>(); //array en el que los voy a guardar
 
-                        Date fecha;
-                        Time hora;
+                        //Date fecha;
+                        //Time hora;
                         for(int i = 0; i<jArray.length();i++){
                             JSONObject json_respuesta = jArray.getJSONObject(i);
-                            fecha = Date.valueOf(json_respuesta.getString("fecha"));
-                            hora = Time.valueOf(json_respuesta.getString("hora"));
+                            //fecha = Date.valueOf(json_respuesta.getString("fecha"));
+                            //hora = Time.valueOf(json_respuesta.getString("hora"));
 
-                            arrayEncuentros.add(new Encuentro(json_respuesta.getInt("ID"),json_respuesta.getString("descripcion"),json_respuesta.getInt("deporte_id"),json_respuesta.getInt("capacidad"),fecha,hora,json_respuesta.getString("lat"),json_respuesta.getString("lon")));
+                            arrayEncuentros.add(new Encuentro(json_respuesta.getInt("ID"),json_respuesta.getString("descripcion"),json_respuesta.getInt("deporte_id"),json_respuesta.getInt("apuntados"),json_respuesta.getInt("capacidad"),json_respuesta.getString("fecha"),json_respuesta.getString("hora"),json_respuesta.getString("lat"),json_respuesta.getString("lon")));
                         }
 
                         return arrayEncuentros;
@@ -218,10 +215,10 @@ public class SplashScreenSports extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Encuentro> encuentros) {
             super.onPostExecute(encuentros);
             if(encuentros!=null){
-                for(Encuentro e : encuentros){
-                    Log.v("encuentro",e.toString());
+                for(Encuentro e: encuentros){
+                    Log.v("contador",e.toString());
                 }
-                Intent i = new Intent(SplashScreenSports.this, Quedadas.class);
+                Intent i = new Intent(SplashScreenSports.this, Encuentros.class);
                 i.putParcelableArrayListExtra("encuentros", encuentros);
                 i.putParcelableArrayListExtra("deportes", deportes);
                 startActivity(i);

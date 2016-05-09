@@ -3,8 +3,6 @@ package com.example.usuario.redsports.POJO;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.sql.Date;
-import java.sql.Time;
 
 /**
  * Created by USUARIO on 08/05/2016.
@@ -13,16 +11,18 @@ public class Encuentro implements Parcelable{
     private int id;
     private String descripcion;
     private int deporte_id;
+    private int apuntados;
     private int capacidad;
-    private java.sql.Date fecha;
-    private Time hora;
+    private String fecha;
+    private String hora;
     private String lat;
     private String lon;
 
-    public Encuentro(int id,String descripcion, int deporte_id, int capacidad, java.sql.Date fecha, Time hora, String lat, String lon) {
+    public Encuentro(int id,String descripcion, int deporte_id,int apuntados, int capacidad, String fecha, String hora, String lat, String lon) {
         this.id = id;
         this.descripcion = descripcion;
         this.deporte_id = deporte_id;
+        this.apuntados = apuntados;
         this.capacidad = capacidad;
         this.fecha = fecha;
         this.hora = hora;
@@ -33,22 +33,28 @@ public class Encuentro implements Parcelable{
     public Encuentro() {
     }
 
+
     protected Encuentro(Parcel in) {
         id = in.readInt();
         descripcion = in.readString();
         deporte_id = in.readInt();
+        apuntados = in.readInt();
         capacidad = in.readInt();
+        fecha = in.readString();
+        hora = in.readString();
         lat = in.readString();
         lon = in.readString();
     }
-
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(descripcion);
         dest.writeInt(deporte_id);
+        dest.writeInt(apuntados);
         dest.writeInt(capacidad);
+        dest.writeString(fecha);
+        dest.writeString(hora);
         dest.writeString(lat);
         dest.writeString(lon);
     }
@@ -110,19 +116,19 @@ public class Encuentro implements Parcelable{
         this.capacidad = capacidad;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
@@ -142,6 +148,13 @@ public class Encuentro implements Parcelable{
         this.lon = lon;
     }
 
+    public int getApuntados() {
+        return apuntados;
+    }
+
+    public void setApuntados(int apuntados) {
+        this.apuntados = apuntados;
+    }
 
     @Override
     public String toString() {
@@ -149,9 +162,10 @@ public class Encuentro implements Parcelable{
                 "id=" + id +
                 ", descripcion='" + descripcion + '\'' +
                 ", deporte_id=" + deporte_id +
+                ", apuntados=" + apuntados +
                 ", capacidad=" + capacidad +
-                ", fecha=" + fecha +
-                ", hora=" + hora +
+                ", fecha='" + fecha + '\'' +
+                ", hora='" + hora + '\'' +
                 ", lat='" + lat + '\'' +
                 ", lon='" + lon + '\'' +
                 '}';
