@@ -1,12 +1,14 @@
 package com.example.usuario.redsports.splash;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class SplashScreenSports extends AppCompatActivity {
     private static final String IP = "http://webservicesports.esy.es";
     private static final String OBTENER_DEPORTES = IP + "/obtener_deportes.php";
     private static final String OBTENER_ENCUENTROS = IP + "/obtener_encuentros.php";
+    private static final String ICONOS_DEPORTES = IP + "/imgs/icons/";
+    private Bitmap icono;
     private ArrayList<Deporte> deportes = new ArrayList<>();
     private ArrayList<Encuentro> encuentros = new ArrayList<>();
 
@@ -51,7 +55,7 @@ public class SplashScreenSports extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splashscreen_sports);
+        setContentView(R.layout.splashscreen_sports);
 
         new getDeportesTask().execute(OBTENER_DEPORTES);
 
@@ -109,9 +113,19 @@ public class SplashScreenSports extends AppCompatActivity {
                         jArray = respuestaJSON.getJSONArray("deportes");
                         ArrayList<Deporte> arrayDeportes = new ArrayList<>();
                         for(int i = 0; i<jArray.length();i++){
+
                             JSONObject json_respuesta = jArray.getJSONObject(i);
-                            arrayDeportes.add(new Deporte(json_respuesta.getInt("ID"),json_respuesta.getString("nombre")));
-                        }
+
+                            //obtengo el icono del deporte
+                            URL urlicono = new URL(ICONOS_DEPORTES + json_respuesta.getString("icono"));
+                            HttpURLConnection conimagen = (HttpURLConnection)urlicono.openConnection();
+                            conimagen.connect();
+                            icono = BitmapFactory.decodeStream(conimagen.getInputStream());
+
+                            Bitmap nuevo = scaleDownBitmap(icono, 100, SplashScreenSports.this); //escalo la imagen para que luego no me de error
+
+                            arrayDeportes.add(new Deporte(json_respuesta.getInt("ID"),json_respuesta.getString("nombre"),nuevo));
+                            }
 
                         return arrayDeportes;
                     } else if (resultJSON.equals("2")) {
@@ -139,6 +153,18 @@ public class SplashScreenSports extends AppCompatActivity {
                 startActivity(i);
             }
         }
+    }
+
+    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) { //metodo para escalar las imagenes, ya que me daba error
+
+        final float densityMultiplier = context.getResources().getDisplayMetrics().density;
+
+        int h= (int) (newHeight*densityMultiplier);
+        int w= (int) (h * photo.getWidth()/((double) photo.getHeight()));
+
+        photo=Bitmap.createScaledBitmap(photo, w, h, true);
+
+        return photo;
     }
 
     /**************************** OBTENER LOS ENCUENTROS ******************************************************/
@@ -188,13 +214,8 @@ public class SplashScreenSports extends AppCompatActivity {
                         jArray = respuestaJSON.getJSONArray("encuentros");
                         ArrayList<Encuentro> arrayEncuentros = new ArrayList<>(); //array en el que los voy a guardar
 
-                        //Date fecha;
-                        //Time hora;
                         for(int i = 0; i<jArray.length();i++){
                             JSONObject json_respuesta = jArray.getJSONObject(i);
-                            //fecha = Date.valueOf(json_respuesta.getString("fecha"));
-                            //hora = Time.valueOf(json_respuesta.getString("hora"));
-
                             arrayEncuentros.add(new Encuentro(json_respuesta.getInt("ID"),json_respuesta.getString("descripcion"),json_respuesta.getInt("deporte_id"),json_respuesta.getInt("apuntados"),json_respuesta.getInt("capacidad"),json_respuesta.getString("fecha"),json_respuesta.getString("hora"),json_respuesta.getString("lat"),json_respuesta.getString("lon")));
                         }
 
@@ -215,9 +236,6 @@ public class SplashScreenSports extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Encuentro> encuentros) {
             super.onPostExecute(encuentros);
             if(encuentros!=null){
-                for(Encuentro e: encuentros){
-                    Log.v("contador",e.toString());
-                }
                 Intent i = new Intent(SplashScreenSports.this, Encuentros.class);
                 i.putParcelableArrayListExtra("encuentros", encuentros);
                 i.putParcelableArrayListExtra("deportes", deportes);

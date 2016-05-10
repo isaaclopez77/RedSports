@@ -1,14 +1,22 @@
 package com.example.usuario.redsports;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.usuario.redsports.POJO.Deporte;
 import com.example.usuario.redsports.POJO.Encuentro;
 import com.example.usuario.redsports.fragments.FragmentEncuentros1;
 import com.example.usuario.redsports.fragments.FragmentEncuentros2;
+import com.example.usuario.redsports.fragments.FragmentEncuentros3;
+import com.example.usuario.redsports.fragments.FragmentEncuentros4;
+import com.example.usuario.redsports.fragments.FragmentEncuentros5;
 
 import java.util.ArrayList;
 
@@ -17,12 +25,13 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
     private ArrayList<Deporte> deportes;
     private ArrayList<Encuentro> encuentros;
     private ArrayList<Encuentro> encuentrosPorId;
+    private Context context;
 
-    public AdaptadorPestañas(FragmentManager fm, ArrayList<Deporte> deportes, ArrayList<Encuentro> encuentros) {
+    public AdaptadorPestañas(FragmentManager fm, Context context, ArrayList<Deporte> deportes, ArrayList<Encuentro> encuentros) {
         super(fm);
         this.deportes = deportes;
         this.encuentros = encuentros;
-        Log.v("def",encuentros.toString());
+        this.context = context;
     }
 
     @Override
@@ -31,8 +40,7 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
-        //Hacer en un solo fragmento todo
+    public Fragment getItem(int position) { // soporta cinco pestañas distintas
 
         Fragment f = null;
 
@@ -40,7 +48,6 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
             case 0:
                 ArrayList<Encuentro> e1 = getEncuentrosByDeporteId(deportes.get(0).getId());
                 Log.v("deporte1",e1.toString());
-
                 f = FragmentEncuentros1.newInstance(e1);
                 break;
             case 1:
@@ -51,42 +58,17 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
             case 2:
                 encuentrosPorId = getEncuentrosByDeporteId(deportes.get(2).getId());
                 Log.v("deporte3",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
+                f = FragmentEncuentros3.newInstance(encuentrosPorId);
                 break;
             case 3:
                 encuentrosPorId = getEncuentrosByDeporteId(deportes.get(3).getId());
                 Log.v("deporte4",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
+                f = FragmentEncuentros4.newInstance(encuentrosPorId);
                 break;
             case 4:
                 encuentrosPorId = getEncuentrosByDeporteId(deportes.get(4).getId());
                 Log.v("deporte5",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
-                break;
-            case 5:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(5).getId());
-                Log.v("deporte6",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
-                break;
-            case 6:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(6).getId());
-                Log.v("deporte7",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
-                break;
-            case 7:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(7).getId());
-                Log.v("deporte8",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
-                break;
-            case 8:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(8).getId());
-                Log.v("deporte9",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
-                break;
-            case 9:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(9).getId());
-                Log.v("deporte10",encuentrosPorId.toString());
-                f = FragmentEncuentros1.newInstance(encuentrosPorId);
+                f = FragmentEncuentros5.newInstance(encuentrosPorId);
                 break;
         }
         return f;
@@ -107,5 +89,14 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
                 result.add(e);
         }
         return result;
+    }
+
+    public View getTabView(int position) { //para el layout de cada pestaña
+        View v = LayoutInflater.from(context).inflate(R.layout.item_tab, null);
+        TextView tv = (TextView) v.findViewById(R.id.tvSports);
+        tv.setText(deportes.get(position).getNombre());
+        ImageView img = (ImageView) v.findViewById(R.id.imageView2);
+        img.setImageBitmap(deportes.get(position).getIcono());
+        return v;
     }
 }

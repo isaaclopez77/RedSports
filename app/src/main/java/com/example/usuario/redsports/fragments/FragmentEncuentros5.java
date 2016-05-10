@@ -1,9 +1,6 @@
 package com.example.usuario.redsports.fragments;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,20 +16,20 @@ import com.example.usuario.redsports.R;
 import java.util.ArrayList;
 
 
-public class FragmentEncuentros1 extends Fragment {
+public class FragmentEncuentros5 extends Fragment {
 
     private static ArrayList<Encuentro> encuentros;
     private RecyclerView recView;
     private FloatingActionButton fab;
     View viewFragment;
 
-    public static FragmentEncuentros1 newInstance(ArrayList<Encuentro> e) {
-        FragmentEncuentros1 fragment = new FragmentEncuentros1();
+    public static FragmentEncuentros5 newInstance(ArrayList<Encuentro> e) {
+        FragmentEncuentros5 fragment = new FragmentEncuentros5();
         encuentros = e;
         return fragment;
     }
 
-    public FragmentEncuentros1() {
+    public FragmentEncuentros5() {
         // Required empty public constructor
     }
 

@@ -1,5 +1,6 @@
 package com.example.usuario.redsports.POJO;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,27 +10,30 @@ import android.os.Parcelable;
 public class Deporte implements Parcelable{
     private int id;
     private String nombre;
+    private Bitmap icono;
 
 
     public Deporte(){
-
     }
 
-    public Deporte(int id, String nombre){
+    public Deporte(int id, String nombre, Bitmap icono){
         this.id = id;
         this.nombre = nombre;
+        this.icono = icono;
     }
 
 
     protected Deporte(Parcel in) {
         id = in.readInt();
         nombre = in.readString();
+        icono = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(nombre);
+        dest.writeParcelable(icono, flags);
     }
 
     @Override
@@ -65,14 +69,20 @@ public class Deporte implements Parcelable{
         this.nombre = nombre;
     }
 
+    public Bitmap getIcono() {
+        return icono;
+    }
 
+    public void setIcono(Bitmap icono) {
+        this.icono = icono;
+    }
 
     @Override
     public String toString() {
         return "Deporte{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", icono=" + icono +
                 '}';
     }
-
 }

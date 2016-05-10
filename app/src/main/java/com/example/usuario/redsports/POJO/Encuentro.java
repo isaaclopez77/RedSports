@@ -76,7 +76,7 @@ public class Encuentro implements Parcelable{
         }
     };
 
-    public boolean esEsteEncuentroDeEsteDeporte(int deporte_id){
+    public boolean esEsteEncuentroDeEsteDeporte(int deporte_id){ //Si el encuentro desde el que llamamos al metodo pertenece al deporte que le pasamos por parametro devuelve true
         if(deporte_id == this.deporte_id){
             return true;
         }else{

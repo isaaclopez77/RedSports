@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ruta por nosedonde que guapo "
-            android:id="@+id/tvDesc" />
+            android:id="@+id/tvDesc"
+            android:textColor="@color/primary_dark_material_dark" />
 
         <TextView
             android:layout_width="wrap_content"

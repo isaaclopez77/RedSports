@@ -3,6 +3,7 @@ package com.example.usuario.redsports;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -43,6 +44,9 @@ public class Principal extends AppCompatActivity {
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView tvToolbar = (TextView)toolbar.findViewById(R.id.tvTituloToolbar);
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/RockSalt.ttf");
+        tvToolbar.setTypeface(tf);
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
