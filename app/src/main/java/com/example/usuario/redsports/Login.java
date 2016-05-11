@@ -119,6 +119,8 @@ public class Login extends AppCompatActivity {
 
     public class LoginTask extends AsyncTask<String,Void,String> {
 
+        String ID;
+
         @Override
         protected String doInBackground(String... params) {
 
@@ -126,6 +128,7 @@ public class Login extends AppCompatActivity {
             String contraseña = params[1];
             URL url = null; // Url de donde queremos obtener información
             String devuelve = "";
+
 
             try {
                 url = new URL(cadena);
@@ -160,6 +163,7 @@ public class Login extends AppCompatActivity {
 
                     if (resultJSON.equals("1")) {      // hay un alumno que mostrar
                         devuelve = respuestaJSON.getJSONObject("mensaje").getString("contrasena");
+                        ID = respuestaJSON.getJSONObject("mensaje").getString("ID");
                         if (devuelve.equals(contraseña)) {
                             return "Logueado";
                         } else {
@@ -186,6 +190,8 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(String s) {
             barra.setVisibility(View.INVISIBLE);
             if (s.equals("Logueado")) {
+                Log.v("Loguead ", "con la id:" + ID );
+                editor.putString("ID", ID);
                 editor.putString("username", usuario);
                 editor.putString("contrasena", contraseña);
                 editor.commit();
@@ -193,7 +199,10 @@ public class Login extends AppCompatActivity {
                 Intent i = new Intent(Login.this, Principal.class);
                 startActivity(i);
             } else {
-                Snackbar.make(btnOk, s, Snackbar.LENGTH_SHORT).show();
+                if(s.equals(""))
+                    Snackbar.make(btnOk, "Error, problema de conexión", Snackbar.LENGTH_SHORT).show();
+                else
+                    Snackbar.make(btnOk, s, Snackbar.LENGTH_SHORT).show();
             }
         }
     }

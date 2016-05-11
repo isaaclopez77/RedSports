@@ -11,11 +11,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.usuario.redsports.splash.SplashScreenSports;
+import com.github.siyamed.shapeimageview.CircularImageView;
 
 
 public class Principal extends AppCompatActivity {
@@ -25,7 +27,7 @@ public class Principal extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private TextView tvNombre;
-
+    private CircularImageView imgUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class Principal extends AppCompatActivity {
         editor = prefs.edit();
         usuario = prefs.getString("username", "");
         contraseña = prefs.getString("contrasena", "");
+
         if(usuario.equals("") || contraseña.equals("")){
             Intent i = new Intent(Principal.this,Login.class);
             startActivity(i);
@@ -50,14 +53,15 @@ public class Principal extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        assert drawer != null;
-        drawer.setDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //assert drawer != null;
+        //drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
+        imgUser = (CircularImageView)header.findViewById(R.id.imgUser);
+        //imgUser.setImageBitmap(); CAMBIAR IMAGEN USUARIO
         tvNombre = (TextView) header.findViewById(R.id.tvNombre);
         tvNombre.setText(usuario);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -78,8 +82,8 @@ public class Principal extends AppCompatActivity {
                         startActivity(i);
                         finish();
                         break;
-                }
 
+                }
                 drawer.closeDrawers();
                 return true;
             }

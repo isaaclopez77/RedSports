@@ -27,22 +27,14 @@
         <activity
             android:name=".Login"
             android:noHistory="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".splash.SplashScreenSports"
-            android:noHistory="true">
-
-        </activity>
+            android:noHistory="true"></activity>
         <activity
             android:name=".AltaUsuario"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".Principal">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Principal"></activity>
         <activity android:name=".Encuentros">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,7 +49,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
+        <activity android:name=".AltaEncuentro"></activity>
     </application>
 
 </manifest>

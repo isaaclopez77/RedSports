@@ -48,27 +48,27 @@ public class AdaptadorPestañas extends FragmentPagerAdapter {
             case 0:
                 ArrayList<Encuentro> e1 = getEncuentrosByDeporteId(deportes.get(0).getId());
                 Log.v("deporte1",e1.toString());
-                f = FragmentEncuentros1.newInstance(e1);
+                f = FragmentEncuentros1.newInstance(e1, deportes.get(0).getId());
                 break;
             case 1:
                 ArrayList<Encuentro> e2 = getEncuentrosByDeporteId(deportes.get(1).getId());
                 Log.v("deporte2",e2.toString());
-                f = FragmentEncuentros2.newInstance(e2);
+                f = FragmentEncuentros2.newInstance(e2, deportes.get(1).getId());
                 break;
             case 2:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(2).getId());
-                Log.v("deporte3",encuentrosPorId.toString());
-                f = FragmentEncuentros3.newInstance(encuentrosPorId);
+                ArrayList<Encuentro> e3 = getEncuentrosByDeporteId(deportes.get(2).getId());
+                Log.v("deporte3",e3.toString());
+                f = FragmentEncuentros3.newInstance(e3, deportes.get(2).getId());
                 break;
             case 3:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(3).getId());
-                Log.v("deporte4",encuentrosPorId.toString());
-                f = FragmentEncuentros4.newInstance(encuentrosPorId);
+                ArrayList<Encuentro> e4 = getEncuentrosByDeporteId(deportes.get(3).getId());
+                Log.v("deporte4",e4.toString());
+                f = FragmentEncuentros4.newInstance(e4, deportes.get(3).getId());
                 break;
             case 4:
-                encuentrosPorId = getEncuentrosByDeporteId(deportes.get(4).getId());
-                Log.v("deporte5",encuentrosPorId.toString());
-                f = FragmentEncuentros5.newInstance(encuentrosPorId);
+                ArrayList<Encuentro> e5 = getEncuentrosByDeporteId(deportes.get(4).getId());
+                Log.v("deporte4",e5.toString());
+                f = FragmentEncuentros5.newInstance(e5, deportes.get(4).getId());
                 break;
         }
         return f;
