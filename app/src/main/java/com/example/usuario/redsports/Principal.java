@@ -10,14 +10,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.usuario.redsports.POJO.Encuentro;
+import com.example.usuario.redsports.fragments.AdaptadorEncuentros;
 import com.example.usuario.redsports.splash.SplashScreenSports;
 import com.github.siyamed.shapeimageview.CircularImageView;
+
+import java.util.ArrayList;
 
 
 public class Principal extends AppCompatActivity {
@@ -26,8 +33,10 @@ public class Principal extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private TextView tvNombre;
+    private TextView tvNombre, tvprueba;
     private CircularImageView imgUser;
+    private RecyclerView rv;
+    private ArrayList<Encuentro> encuentros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,33 @@ public class Principal extends AppCompatActivity {
             startActivity(i);
             finish();
         }
+        //Ahora obtengo los encuentros de ese usuario
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){ //Si está apuntado algún encuentro muestro la lista
+            encuentros = extras.getParcelableArrayList("encuentros");
+
+            rv = (RecyclerView)findViewById(R.id.RecyclerView);
+            final AdaptadorEncuentros adaptador = new AdaptadorEncuentros(encuentros);
+            adaptador.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int itemPosition = rv.getChildAdapterPosition(v);
+                    Encuentro item = encuentros.get(itemPosition);
+                    Log.v("seleccionado",item.toString());
+
+                    //Intent para ver ese encuentro
+                }
+            });
+            rv.setAdapter(adaptador);
+
+            rv.setLayoutManager(new LinearLayoutManager(Principal.this, LinearLayoutManager.VERTICAL,false));
+        }else{
+            TextView tv = (TextView)findViewById(R.id.tvMisEncuentros);
+            tv.setVisibility(View.GONE);
+
+            LinearLayout ly = (LinearLayout)findViewById(R.id.layout_linear);
+            ly.setVisibility(View.VISIBLE);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView tvToolbar = (TextView)toolbar.findViewById(R.id.tvTituloToolbar);
@@ -54,8 +90,6 @@ public class Principal extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //assert drawer != null;
-        //drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -88,6 +122,8 @@ public class Principal extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     @Override

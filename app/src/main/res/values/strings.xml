@@ -19,6 +19,13 @@
     <string name="nav_cerrar_sesion">Cerrar sesión</string>
     <string name="nav_configuración">Configuración</string>
     <string name="nav_preferencias">Preferencias</string>
+    <!-- AltaEncuentros -->
+
+    <string name="spinner_titulo">¿Irás acompañado?</string>
+    <string-array name="spinner_array">
+        <item>No</item>
+        <item>Si</item>
+    </string-array>
 
 
 </resources>

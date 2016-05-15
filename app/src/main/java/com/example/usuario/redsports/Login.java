@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.usuario.redsports.POJO.Encuentro;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -23,6 +24,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -33,6 +35,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
@@ -41,6 +44,7 @@ public class Login extends AppCompatActivity {
     private Button btnOk;
     private String IP = "http://webservicesports.esy.es";
     private String LOGIN = IP + "/auth.php";
+    private String ENCUENTROS = IP + "/obtener_encuentro_por_usuario_id.php";
     private String usuario, contraseña;
     private TextView tvTitulo, tvRegistrarse;
     private SmoothProgressBar barra;
@@ -117,6 +121,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /************** LOGUEAR *********************/
     public class LoginTask extends AsyncTask<String,Void,String> {
 
         String ID;
@@ -195,15 +200,87 @@ public class Login extends AppCompatActivity {
                 editor.putString("username", usuario);
                 editor.putString("contrasena", contraseña);
                 editor.commit();
-
-                Intent i = new Intent(Login.this, Principal.class);
-                startActivity(i);
+                new getEncuentrosTask().execute(ENCUENTROS + "?idusuario=" + ID);
             } else {
                 if(s.equals(""))
                     Snackbar.make(btnOk, "Error, problema de conexión", Snackbar.LENGTH_SHORT).show();
                 else
                     Snackbar.make(btnOk, s, Snackbar.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    /************* OBTENER ENCUENTROS DEL USUARIO ********************************/
+    public class getEncuentrosTask extends AsyncTask<String,Void,ArrayList<Encuentro>> {
+
+        @Override
+        protected ArrayList<Encuentro> doInBackground(String... params) {
+
+            String cadena = params[0];
+            URL url = null; // Url de donde queremos obtener información
+            String devuelve = "";
+            JSONArray jArray = null;
+            Encuentro encuentro = null;
+
+            try {
+                url = new URL(cadena);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection(); //Abrir la conexión
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0" + " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
+                //connection.setHeader("content-type", "application/json");
+
+                int respuesta = connection.getResponseCode();
+                StringBuilder result = new StringBuilder();
+
+                if (respuesta == HttpURLConnection.HTTP_OK) {
+
+
+                    InputStream in = new BufferedInputStream(connection.getInputStream());  // preparo la cadena de entrada
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));  // la introduzco en un BufferedReader
+
+                    // El siguiente proceso lo hago porque el JSONOBject necesita un String y tengo
+                    // que tranformar el BufferedReader a String. Esto lo hago a traves de un
+                    // StringBuilder.
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);        // Paso toda la entrada al StringBuilder
+                    }
+                    //Creamos un objeto JSONObject para poder acceder a los atributos (campos) del objeto.
+                    JSONObject respuestaJSON = new JSONObject(result.toString());   //Creo un JSONObject a partir del StringBuilder pasado a cadena
+                    //Accedemos al vector de resultados
+
+                    String resultJSON = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
+
+                    if (resultJSON.equals("1")) {      // hay encuentros que mostrar
+                        jArray = respuestaJSON.getJSONArray("encuentros");
+                        ArrayList<Encuentro> arrayEncuentros = new ArrayList<>(); //array en el que los voy a guardar
+
+                        for(int i = 0; i<jArray.length();i++){
+                            JSONObject json_respuesta = jArray.getJSONObject(i);
+                            arrayEncuentros.add(new Encuentro(json_respuesta.getInt("ID"),json_respuesta.getString("descripcion"),json_respuesta.getInt("deporte_id"),json_respuesta.getInt("apuntados"),json_respuesta.getInt("capacidad"),json_respuesta.getString("fecha"),json_respuesta.getString("hora"),json_respuesta.getString("lat"),json_respuesta.getString("lon")));
+                        }
+
+                        return arrayEncuentros;
+                    } else if (resultJSON.equals("2")) {
+                        return null;
+                    }
+
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Encuentro> encuentros) {
+            super.onPostExecute(encuentros);
+            Intent i = new Intent(Login.this, Principal.class);
+            if(encuentros!=null)
+                i.putParcelableArrayListExtra("encuentros", encuentros);
+            startActivity(i);
         }
     }
 }
